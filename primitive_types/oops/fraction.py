@@ -7,8 +7,11 @@ def gcd(a, b):
 
 class Fraction:
     def __init__(self, num, den):
-        self.num = num
-        self.den = den
+        if type(num) == int and type(den) == int:
+            self.num = num
+            self.den = den
+        else:
+            raise Exception("Numerator/denominator is not int!")
 
     def __str__(self):
         return str(self.num) + "/" + str(self.den)
@@ -36,3 +39,4 @@ if __name__ == "__main__":
     f2 = Fraction(1, 2)
     f3 = f1 + f2
     print(f3)
+    f4 = Fraction(2, 'x')
