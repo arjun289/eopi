@@ -13,6 +13,13 @@ class MyList:
     def __init__(self, head=None):
         self.head = head
 
+    def length(self):
+        step, node = 0, self.head
+        while node:
+            step += 1
+            node = node.next
+        return step
+            
     def search_list(self, key):
         L = self.head
         while L and L.data != key:
