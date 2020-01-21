@@ -57,6 +57,24 @@ class MyList:
 
         self.head = prev
 
+    def deletion_from_list(self, node_to_delete):
+        temp_node = node_to_delete.next
+        node_to_delete.data = temp_node.data
+        node_to_delete.next = temp_node.next
+        temp_node.next = None
+
+    def delete_kth_last(self, k):
+        iter_1 = self.head
+        for _ in range(k):
+            iter_1 = iter_1.next
+        
+        iter_2 = self.head
+        while iter_1:
+            iter_1 = iter_1.next
+            iter_2 = iter_2.next
+
+        iter_2.next = iter_2.next.next
+
     def has_cycle(self):
         fast = slow = self.head
 
@@ -87,6 +105,29 @@ class MyList:
         
         return None
 
+    def cyclic_right_shift(self, length):
+        
+        if not self.head:
+            return
+        list_length = self.length()
+        if length > list_length:
+            length = length % list_length
+
+        head = self.head
+        iter_head, iter_tail = head, head
+
+        for _ in range(length):
+            iter_tail = iter_tail.next
+        
+        while iter_tail.next is not None:
+            iter_head = iter_head.next
+            iter_tail = iter_tail.next
+        
+        temp = iter_head.next
+        iter_head.next = None
+        iter_tail.next = head
+        self.head = temp
+
 
 if __name__ == "__main__":
     node1 = ListNode(1)
@@ -97,8 +138,8 @@ if __name__ == "__main__":
     node3 = ListNode(3)
     node2.next = node3
 
-    listing.insert_after(node2, ListNode(4))
     print(listing)
-    print(listing.has_cycle())
-    node3.next = node2
-    print(listing.has_cycle())
+    print(listing.length())
+    listing.cyclic_right_shift(5)
+    
+    print(listing)
