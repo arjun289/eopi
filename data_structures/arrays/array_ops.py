@@ -1,17 +1,31 @@
-# increment an arbitary precision integer using arrays.
-def plus_one(arr):
-    arr[-1] += 1
-    for i in reversed(range(1, len(arr))):
-        if arr[i] != 10:
-            break
-        arr[i-1] += 1
-        arr[i] = 0
-    if arr[0] == 10:
-        arr.append(0)
-        arr[0] = 1
-    return arr
+# Write a program which takes an array of n integers, where A[i] denotes the
+#  maximum you can advance from index l, and retums whether it is possible to
+# advance to the last index starting from the beginning of the array.
 
 
-if __name__ == "__main__":
-    arr = [9, 9]
-    print(plus_one(arr))
+def can_reach_end(arr):
+    furthest_reach_so_far, last_index = 0, len(arr) - 1
+    i = 0
+    while i <= furthest_reach_so_far and furthest_reach_so_far < last_index:
+        furthest_reach_so_far = max(furthest_reach_so_far, arr[i] + i)
+        i += 1
+
+    return furthest_reach_so_far >= last_index
+
+# Write a program which takes as input a sorted array and updates it so that
+# all duplicates have been removed and the remaining elements have been shifted
+# left to fill the emptied indices. Return the number of valid elements.
+
+
+def remove_duplicates(arr):
+    if not arr:
+        return 0
+    
+    write_index = 1
+    for i in range(1, len(arr)):
+        if arr[write_index - 1] != arr[i]:
+            arr[write_index] = arr[i]
+            write_index += 1
+
+    return write_index
+    
