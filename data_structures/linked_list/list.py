@@ -12,6 +12,7 @@ class MyList:
 
     def __init__(self, head=None):
         self.head = head
+        self.size = 0
 
     def length(self):
         step, node = 0, self.head
@@ -19,6 +20,9 @@ class MyList:
             step += 1
             node = node.next
         return step
+
+    def size(self):
+        self.size
             
     def search_list(self, key):
         L = self.head
@@ -34,6 +38,26 @@ class MyList:
             string = string + str(L.data) + "->"
             L = L.next
         return string + "Null"
+
+    # O(1)
+    def insertStart(self, node):
+        self.size += 1
+
+        if self.head:
+            node.next = self.head.next
+            self.head = node
+        else:
+            self.head = node
+
+    def insertEnd(self, node):
+        self.size += 1
+        if self.head:
+            temp = self.head
+            while temp.next:
+                temp = temp.next
+            temp.next = node
+        else:
+            self.head = node
 
     def insert_after(self, node, new_node):
         new_node.next = node.next
