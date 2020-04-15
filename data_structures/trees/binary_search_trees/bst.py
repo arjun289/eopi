@@ -49,3 +49,36 @@ class BinarySearchTree():
             return self.getMax(node.right)
 
         return node.data
+
+    def traverse(self, type):
+        if self.root and type == "inorder":
+            self.traverseInorder(self.root)
+        elif self.root and type == "postorder":
+            self.traversePostorder(self.root)
+        else:
+            self.traversePreorder(self.root)
+
+    def traverseInorder(self, node):
+        if node.left:
+            self.traverseInorder(node.left)
+
+        print("%s ", node.data)
+
+        if node.right:
+            self.traverseInorder(node.right)
+
+    def traversePostorder(self, node):
+        if node.left:
+            self.traverseInorder(node.left)
+
+        if node.right:
+            self.traverseInorder(node.right)
+        print("%s ", node.data)
+
+    def traversePreorder(self, node):
+        print("%s ", node.data)
+        if node.left:
+            self.traverseInorder(node.left)
+
+        if node.right:
+            self.traverseInorder(node.right)
