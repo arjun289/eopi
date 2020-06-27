@@ -62,7 +62,7 @@ class BinarySearchTree():
         if node.left:
             self.traverseInorder(node.left)
 
-        print("%s ", node.data)
+        print("%s " % node.data)
 
         if node.right:
             self.traverseInorder(node.right)
@@ -73,12 +73,63 @@ class BinarySearchTree():
 
         if node.right:
             self.traverseInorder(node.right)
-        print("%s ", node.data)
+        print("%s " % node.data)
 
     def traversePreorder(self, node):
-        print("%s ", node.data)
+        print("%s " % node.data)
         if node.left:
             self.traverseInorder(node.left)
 
         if node.right:
             self.traverseInorder(node.right)
+
+    def remove(self, data):
+        if self.root:
+            self.root = self.removeNode(self.root, data)
+
+    def removeNode(self, node, data):
+        if not node:
+            return node
+
+        if data < node.data:
+            node.left = self.removeNode(node.left, data)
+        elif data > node.data:
+            node.right = self.removeNode(node.right, data)
+        else:
+            if not node.left and not node.right:
+                print("Removing a leaf node...")
+                del node
+                return None
+            elif not node.left:
+                print("Removing node with single right child...")
+                temp = node.right
+                del node
+                return temp
+            elif not node.right:
+                print("Removing node with single left child...")
+                temp = node.left
+                del node
+                return temp
+            else:
+                print("Removing node with two children...")
+                temp = self.get_predecessor(node.left)
+                node.data = temp.data
+                node.left = self.removeNode(node.left, temp.data)
+                return node
+
+    def get_predecessor(self, node):
+        if node.right:
+            return self.get_predecessor(node.right)
+        return node
+
+
+bst = BinarySearchTree()
+bst.insert("C")
+bst.insert("A")
+bst.insert("Z")
+bst.insert("G")
+
+bst.traverse("inorder")
+
+bst.remove("C")
+bst.traverse("inorder")
