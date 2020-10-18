@@ -64,6 +64,50 @@ def insertion_sort(array):
     return array
 
 
+def merge_sort(array, low, high):
+    if len(array) <= 1:
+        return array
+    
+    partition_index = (low+high) // 2
+    left_sub_array = array[low:partition_index]
+    length_left = len(left_sub_array)
+    right_sub_array = array[partition_index:high]
+    length_right = len(right_sub_array)
+
+    left = merge_sort(left_sub_array, 0, length_left)
+    right = merge_sort(right_sub_array, 0, length_right)
+    array = merge(left, right)
+    return array
+
+
+def merge(left_array, right_array):
+    length_left = len(left_array)
+    length_right = len(right_array)
+    i = 0
+    j = 0
+    k = 0
+    arr = [0] * (length_left + length_right)
+
+    while i < length_left and j < length_right:
+        if left_array[i] < right_array[j]:
+            arr[k] = left_array[i]
+            i += 1
+        else:
+            arr[k] = right_array[j]
+            j += 1
+        k += 1
+
+    while i < length_left:
+        arr[k] = left_array[i]
+        i += 1
+
+    while j < length_right:
+        arr[k] = right_array[j]
+        j += 1
+    
+    return arr
+
+
 def quick_sort(array, low, high):
     if low >= high:
         return
@@ -93,7 +137,10 @@ def partition(array, low, high):
 
 if __name__ == "__main__":
 
-    arr = [-3, 1, 4, 4, 5, 2, -6, 7]
-    arr = quick_sort(arr, 0, len(arr) - 1)
+    # arr = [3, 1, 6, 5, 2, 4]
+    # arr = insertion_sort(arr, 0, len(arr) - 1)
+
+    arr = [3, 1, 6, 5, 2, 4]
+    arr = merge_sort(arr, 0, len(arr))
 
     print(arr)
